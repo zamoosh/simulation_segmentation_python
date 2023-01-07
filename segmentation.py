@@ -39,13 +39,24 @@ def get_sys_pref():
 
 
 def show_result(logs):
-    for log in logs:
-        print(f'time: {log.time}')
-        print(tabulate(tabular_data=log.content, headers=['#', 'proc memory', 'status', 'duration', 'first duration', 'start time'], tablefmt="fancy_grid"))
-        print('\n\n\n')
+    with open('result.txt', 'w') as f:
+        for log in logs:
+            f.write(f'time: {log.time} \n')
+            f.write(
+                tabulate(
+                    tabular_data=log.content,
+                    headers=['#', 'proc memory',
+                             'status', 'duration',
+                             'first duration', 'start time'],
+                    tablefmt="fancy_grid"
+                )
+            )
+            f.write('\n\n\n')
 
 
 def main():
+    print('For simplicity, process count is 100')
+    print('Change it in process.py file')
     memory = get_sys_pref()
     process_arr = Process.generate_process()
     logs = segmenting(process_arr, memory)
