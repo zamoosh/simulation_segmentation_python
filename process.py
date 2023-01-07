@@ -3,7 +3,7 @@ import random
 
 class Process:
     DONE = False
-    process_number = 2
+    process_number = 100
     PROCESS_STATUS = ['NS', 'P', 'D']
 
     def __init__(self, kwargs):
@@ -21,8 +21,8 @@ class Process:
     def generate_process(cls):
         process_array = []
         for proc in range(cls.process_number):
-            memory = random.randint(1, 10)
-            duration = random.randint(1, 2)
+            memory = random.randint(1, 20)
+            duration = random.randint(1, 5)
             process_array.append(Process({'id': proc, 'memory': memory, 'duration': duration}))
         return process_array
 
