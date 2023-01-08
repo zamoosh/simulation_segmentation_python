@@ -105,6 +105,15 @@ def show_results_console(logs, headers):
         print('\n\n\n')
 
 
+def print_system_prefs():
+    memory = Memory.get_memory()
+    print(f'\n\n{Fore.YELLOW}system preferences is as below')
+    print(f'{Fore.LIGHTCYAN_EX}memory capacity: {memory.capacity}')
+    if Memory.get_memory().algorith == 1:
+        print(f'page count: {memory.page_count}')
+        print(f'each page size: {memory.page_size} {Fore.RESET}')
+
+
 def show_result(logs):
     show_result_method = None
     again = True
@@ -132,6 +141,7 @@ def show_result(logs):
                    f'{Fore.RESET}status{Fore.YELLOW}', f'{Fore.RESET}duration{Fore.YELLOW}',
                    f'{Fore.RESET}init duration{Fore.YELLOW}', f'{Fore.RESET}start time{Fore.YELLOW}']
 
+    print_system_prefs()
     if show_result_method == 1:
         show_results_file(logs, headers)
     elif show_result_method == 2:
@@ -160,9 +170,10 @@ def select_algorithm():
 
 
 def main():
-    print(f'For simplicity, process count is {Fore.GREEN}100{Fore.RESET}')
+    print(f'For simplicity, process count is {Fore.GREEN}20{Fore.RESET}')
     print(f'Change it in {Fore.GREEN}process.py{Fore.RESET} file \n')
     select_algorithm()
+    Process.get_process_count()
     process_arr = Process.generate_process()
     logs = run(process_arr)
     show_result(logs)

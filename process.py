@@ -1,5 +1,6 @@
 import random
 from colorama import Fore
+from utils import *
 
 
 class Process:
@@ -20,6 +21,31 @@ class Process:
     def __str__(self):
         return f'{self.memory} {self.duration}'
 
+    @classmethod
+    def get_process_count(cls):
+        again = True
+        print(f'input the {Fore.GREEN}amount of process{Fore.RESET}. leave it blank if you want: ', end='')
+        while again:
+            process_count = input()
+            if process_count == '':
+                clear_console()
+                print(f'{Fore.GREEN}{cls.process_number} is the amount of the processes')
+                again = False
+            else:
+                if process_count.isdigit():
+                    if int(process_count) > 1:
+                        print(f'{Fore.GREEN}process count is:{Fore.RESET} {process_count}')
+                        again = False
+                        Process.process_number = int(process_count)
+                    else:
+                        clear_console()
+                        again = True
+                        print(f'{Fore.RED}enter a number bigger than 1: {Fore.RESET}', end='')
+                else:
+                    clear_console()
+                    print(f'{Fore.RED}only int numbers are allowed. waiting for process count: {Fore.RESET}', end='')
+                    again = True
+
     def get_start_time(self):
         if self.start_time:
             return self.start_time
@@ -34,7 +60,6 @@ class Process:
             return f'{Fore.LIGHTGREEN_EX}done{Fore.YELLOW}'
         elif self.status == 'T':
             return f'{Fore.LIGHTYELLOW_EX}terminated{Fore.YELLOW}'
-
 
     def get_page_count(self):
         if self.page_count:
@@ -82,5 +107,10 @@ class Process:
                      f'{Fore.RESET}{proc.get_page_used()}{Fore.YELLOW}'])
         else:
             for proc in process_arr:
-                log.append([proc.id, proc.memory, proc.status, proc.duration, proc.first_duration, proc.start_time])
+                log.append([f'{Fore.CYAN}{proc.id}{Fore.YELLOW}',
+                            f'{Fore.LIGHTMAGENTA_EX}{proc.memory}{Fore.YELLOW}',
+                            f'{Fore.RESET}{proc.get_status()}{Fore.YELLOW}',
+                            f'{Fore.LIGHTBLUE_EX}{proc.duration}{Fore.YELLOW}',
+                            f'{Fore.LIGHTBLUE_EX}{proc.first_duration}{Fore.YELLOW}',
+                            f'{Fore.RESET}{proc.start_time}{Fore.YELLOW}'])
         return log
