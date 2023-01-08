@@ -100,7 +100,7 @@ def show_results_file(logs, headers):
 
 def show_results_console(logs, headers):
     for log in logs:
-        print(f'\n\n\n{Fore.GREEN}time: {log.time}{Fore.RESET}')
+        print(f'\n\n\n{Fore.RESET}time: {log.time}{Fore.RESET}')
         print(f'{Fore.YELLOW}{tabulate(tabular_data=log.content, headers=headers, tablefmt="fancy_grid")}')
         print('\n\n\n')
 
@@ -118,13 +118,19 @@ def show_result(logs):
             again = False
         else:
             clear_console()
-            print(f'{Fore.RED}please enter 1 to show results in file and 2 for showing in console: {Fore.RESET}', end='')
+            print(f'{Fore.RED}please enter 1 to show results in file and 2 for showing in console: {Fore.RESET}',
+                  end='')
             again = True
 
     if Memory.get_memory().algorith == 1:
-        headers = ['#', 'proc memory', 'status', 'duration', 'first duration', 'start time', 'page count', 'page used']
+        headers = [f'{Fore.RESET}#{Fore.YELLOW}', f'{Fore.RESET}proc memory{Fore.YELLOW}',
+                   f'{Fore.RESET}status{Fore.YELLOW}', f'{Fore.RESET}duration{Fore.YELLOW}',
+                   f'{Fore.RESET}init duration{Fore.YELLOW}', f'{Fore.RESET}start time{Fore.YELLOW}',
+                   f'{Fore.RESET}page count{Fore.YELLOW}', f'{Fore.RESET}page used{Fore.YELLOW}']
     elif Memory.get_memory().algorith == 2:
-        headers = ['#', 'proc memory', 'status', 'duration', 'first duration', 'start time']
+        headers = [f'{Fore.RESET}#{Fore.YELLOW}', f'{Fore.RESET}proc memory{Fore.YELLOW}',
+                   f'{Fore.RESET}status{Fore.YELLOW}', f'{Fore.RESET}duration{Fore.YELLOW}',
+                   f'{Fore.RESET}init duration{Fore.YELLOW}', f'{Fore.RESET}start time{Fore.YELLOW}']
 
     if show_result_method == 1:
         show_results_file(logs, headers)

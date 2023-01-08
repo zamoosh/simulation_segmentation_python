@@ -1,4 +1,5 @@
 import random
+from colorama import Fore
 
 
 class Process:
@@ -23,6 +24,17 @@ class Process:
         if self.start_time:
             return self.start_time
         return '-'
+
+    def get_status(self):
+        if self.status == 'NS':
+            return f'{Fore.RESET}not started{Fore.YELLOW}'
+        elif self.status == 'P':
+            return f'{Fore.RED}processing{Fore.YELLOW}'
+        elif self.status == 'D':
+            return f'{Fore.LIGHTGREEN_EX}done{Fore.YELLOW}'
+        elif self.status == 'T':
+            return f'{Fore.LIGHTYELLOW_EX}terminated{Fore.YELLOW}'
+
 
     def get_page_count(self):
         if self.page_count:
@@ -60,14 +72,14 @@ class Process:
         if paging:
             for proc in process_arr:
                 log.append(
-                    [proc.id,
-                     proc.memory,
-                     proc.status,
-                     proc.duration,
-                     proc.first_duration,
-                     proc.get_start_time(),
-                     proc.get_page_count(),
-                     proc.get_page_used()])
+                    [f'{Fore.CYAN}{proc.id}{Fore.YELLOW}',
+                     f'{Fore.LIGHTMAGENTA_EX}{proc.memory}{Fore.YELLOW}',
+                     f'{Fore.RESET}{proc.get_status()}{Fore.YELLOW}',
+                     f'{Fore.LIGHTBLUE_EX}{proc.duration}{Fore.YELLOW}',
+                     f'{Fore.LIGHTBLUE_EX}{proc.first_duration}{Fore.YELLOW}',
+                     f'{Fore.RESET}{proc.get_start_time()}{Fore.YELLOW}',
+                     f'{Fore.RESET}{proc.get_page_count()}{Fore.YELLOW}',
+                     f'{Fore.RESET}{proc.get_page_used()}{Fore.YELLOW}'])
         else:
             for proc in process_arr:
                 log.append([proc.id, proc.memory, proc.status, proc.duration, proc.first_duration, proc.start_time])
