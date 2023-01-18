@@ -132,14 +132,14 @@ def show_result(logs):
             again = True
 
     if Memory.get_memory().algorith == 1:
-        headers = [f'{Fore.RESET}#{Fore.YELLOW}', f'{Fore.RESET}proc memory{Fore.YELLOW}',
-                   f'{Fore.RESET}status{Fore.YELLOW}', f'{Fore.RESET}duration{Fore.YELLOW}',
-                   f'{Fore.RESET}init duration{Fore.YELLOW}', f'{Fore.RESET}start time{Fore.YELLOW}',
-                   f'{Fore.RESET}page count{Fore.YELLOW}', f'{Fore.RESET}page used{Fore.YELLOW}']
+        headers = [f'#', f'proc memory',
+                   f'status', f'duration',
+                   f'init duration', f'start time',
+                   f'page count', f'page used']
     elif Memory.get_memory().algorith == 2:
-        headers = [f'{Fore.RESET}#{Fore.YELLOW}', f'{Fore.RESET}proc memory{Fore.YELLOW}',
-                   f'{Fore.RESET}status{Fore.YELLOW}', f'{Fore.RESET}duration{Fore.YELLOW}',
-                   f'{Fore.RESET}init duration{Fore.YELLOW}', f'{Fore.RESET}start time{Fore.YELLOW}']
+        headers = [f'#', f'proc memory',
+                   f'status', f'duration',
+                   f'init duration', f'start time']
 
     print_system_prefs()
     if show_result_method == 1:

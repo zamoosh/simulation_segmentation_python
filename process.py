@@ -53,13 +53,13 @@ class Process:
 
     def get_status(self):
         if self.status == 'NS':
-            return f'{Fore.RESET}not started{Fore.YELLOW}'
+            return f'not started'
         elif self.status == 'P':
-            return f'{Fore.RED}processing{Fore.YELLOW}'
+            return f'processing'
         elif self.status == 'D':
-            return f'{Fore.LIGHTGREEN_EX}done{Fore.YELLOW}'
+            return f'done'
         elif self.status == 'T':
-            return f'{Fore.LIGHTYELLOW_EX}terminated{Fore.YELLOW}'
+            return f'terminated'
 
     def get_page_count(self):
         if self.page_count:
@@ -82,14 +82,18 @@ class Process:
 
     @classmethod
     def check_program(cls, process_arr):
+        cls.DONE = all(set(map(lambda item: item.status == 'D' or item.status == 'T', process_arr)))
         if cls.DONE:
             return cls.DONE
-        for proc in process_arr:
-            if proc.status == 'NS' or proc.status == 'P':
-                return False
-            if proc == process_arr[-1] and (proc.status == 'D' or proc.status == 'T'):
-                cls.DONE = True
-                return cls.DONE
+        return False
+        # if cls.DONE:
+        #     return cls.DONE
+        # for proc in process_arr:
+        #     if proc.status == 'NS' or proc.status == 'P':
+        #         return False
+        #     if proc == process_arr[-1] and (proc.status == 'D' or proc.status == 'T'):
+        #         cls.DONE = True
+        #         return cls.DONE
 
     @staticmethod
     def get_log(process_arr, paging=False):
@@ -97,20 +101,20 @@ class Process:
         if paging:
             for proc in process_arr:
                 log.append(
-                    [f'{Fore.CYAN}{proc.id}{Fore.YELLOW}',
-                     f'{Fore.LIGHTMAGENTA_EX}{proc.memory}{Fore.YELLOW}',
-                     f'{Fore.RESET}{proc.get_status()}{Fore.YELLOW}',
-                     f'{Fore.LIGHTBLUE_EX}{proc.duration}{Fore.YELLOW}',
-                     f'{Fore.LIGHTBLUE_EX}{proc.first_duration}{Fore.YELLOW}',
-                     f'{Fore.RESET}{proc.get_start_time()}{Fore.YELLOW}',
-                     f'{Fore.RESET}{proc.get_page_count()}{Fore.YELLOW}',
-                     f'{Fore.RESET}{proc.get_page_used()}{Fore.YELLOW}'])
+                    [f'{proc.id}',
+                     f'{proc.memory}',
+                     f'{proc.get_status()}',
+                     f'{proc.duration}',
+                     f'{proc.first_duration}',
+                     f'{proc.get_start_time()}',
+                     f'{proc.get_page_count()}',
+                     f'{proc.get_page_used()}'])
         else:
             for proc in process_arr:
-                log.append([f'{Fore.CYAN}{proc.id}{Fore.YELLOW}',
-                            f'{Fore.LIGHTMAGENTA_EX}{proc.memory}{Fore.YELLOW}',
-                            f'{Fore.RESET}{proc.get_status()}{Fore.YELLOW}',
-                            f'{Fore.LIGHTBLUE_EX}{proc.duration}{Fore.YELLOW}',
-                            f'{Fore.LIGHTBLUE_EX}{proc.first_duration}{Fore.YELLOW}',
-                            f'{Fore.RESET}{proc.start_time}{Fore.YELLOW}'])
+                log.append([f'{proc.id}',
+                            f'{proc.memory}',
+                            f'{proc.get_status()}',
+                            f'{proc.duration}',
+                            f'{proc.first_duration}',
+                            f'{proc.start_time}'])
         return log
